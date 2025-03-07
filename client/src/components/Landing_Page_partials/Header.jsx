@@ -16,7 +16,7 @@ function Header() {
                                     onClick={() =>
                                         router.push("/admin/auth")
                                     }
-                                    className="btn-sm text-white bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--secondary-color)] ml-3 cursor-pointer"
+                                    className="btn-sm text-white  text- bg-[#38BDF8] hover:bg-gray-700 w-full sm:w-auto  sm:ml-3 cursor-pointer"
                                 >
                                     Event Manager
                                 </a>
