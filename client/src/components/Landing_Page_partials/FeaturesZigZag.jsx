@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaCheck } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 function FeaturesZigzag({ images }) {
     const features = [
@@ -77,8 +78,21 @@ function FeaturesZigzag({ images }) {
                     </div>
                     <div className="grid gap-20">
                         {features.map((feature, index) => (
-                            <div key={index} className="md:grid md:grid-cols-12 md:gap-6 items-center">
-                                <div className={`max-w-xl md:max-w-none md:w-full mx-auto md:col-span-5 lg:col-span-6 mb-8 md:mb-0 ${index % 2 === 1 ? 'md:order-2' : ''}`}>
+                            <motion.div 
+                                key={index}
+                                initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true, amount: 0.2 }}
+                                transition={{ duration: 1.2, ease: "easeOut" }}
+                                className="md:grid md:grid-cols-12 md:gap-6 items-center"
+                            >
+                                <motion.div 
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    viewport={{ once: true, amount: 0.2 }}
+                                    transition={{ duration: 1.2, ease: "easeOut" }}
+                                    className={`max-w-xl md:max-w-none md:w-full mx-auto md:col-span-5 lg:col-span-6 mb-8 md:mb-0 ${index % 2 === 1 ? 'md:order-2' : ''}`}
+                                >
                                     <img
                                         className="max-w-full mx-auto md:max-w-none h-auto rounded-xl shadow-lg"
                                         src={images[index]?.src || ''}
@@ -86,23 +100,36 @@ function FeaturesZigzag({ images }) {
                                         height="405"
                                         alt={images[index]?.title || ''}
                                     />
-                                </div>
-                                <div className={`max-w-xl md:max-w-none md:w-full mx-auto md:col-span-7 lg:col-span-6 ${index % 2 === 1 ? 'md:order-1' : ''}`}> 
+                                </motion.div>
+                                <motion.div 
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, amount: 0.2 }}
+                                    transition={{ duration: 1.2, ease: "easeOut" }}
+                                    className={`max-w-xl md:max-w-none md:w-full mx-auto md:col-span-7 lg:col-span-6 ${index % 2 === 1 ? 'md:order-1' : ''}`}
+                                > 
                                     <div className="md:pr-4 lg:pr-12 xl:pr-16">
                                         <div className="text-xl text-[#38BDF8] font-semibold mb-2">{feature.title}</div>
                                         <h3 className="h3 mb-3 text-white">{feature.subtitle}</h3>
                                         <p className="text-xl text-gray-300 mb-4">{feature.description}</p>
                                         <ul className="text-lg text-gray-300 -mb-2">
                                             {feature.points.map((point, i) => (
-                                                <li key={i} className="flex items-center mb-2">
+                                                <motion.li 
+                                                    key={i} 
+                                                    className="flex items-center mb-2"
+                                                    initial={{ opacity: 0, x: -20 }}
+                                                    whileInView={{ opacity: 1, x: 0 }}
+                                                    viewport={{ once: true, amount: 0.2 }}
+                                                    transition={{ duration: 1, delay: i * 0.2 }}
+                                                >
                                                     <FaCheck className="w-4 h-4 text-green-400 mr-3" />
                                                     <span>{point}</span>
-                                                </li>
+                                                </motion.li>
                                             ))}
                                         </ul>
                                     </div>
-                                </div>
-                            </div>
+                                </motion.div>
+                            </motion.div>
                         ))}
                     </div>
                 </div>
