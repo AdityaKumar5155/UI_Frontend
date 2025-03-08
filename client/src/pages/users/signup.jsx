@@ -31,6 +31,46 @@ export default function Signup({ userIdCookie }) {
         }
     }, []);
 
+    const handleSignup = async (e) => {
+        e.preventDefault();
+        setMessage({ errorMsg: "", successMsg: "" });
+
+        const response = await fetch("http://localhost:5000/user/signup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email }),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            setStep(2);
+            setMessage({ errorMsg: "", successMsg: data.msg });
+        } else {
+            setMessage({ errorMsg: data.msg, successMsg: "" });
+        }
+    };
+
+    const handleVerifyOtp = async (e) => {
+        e.preventDefault();
+        setMessage({ errorMsg: "", successMsg: "" });
+
+        const response = await fetch("http://localhost:5000/user/signup/verify", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, otp, contactNumber, regNumber, username }),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            setUserToken(data.user_id);
+            setStep(3);
+            setMessage({ errorMsg: "", successMsg: "Signup successful! Redirecting..." });
+            setTimeout(() => router.push("/users/dashboard"), 1000);
+        } else {
+            setMessage({ errorMsg: data.msg, successMsg: "" });
+        }
+    };
+
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-[#000814] text-white p-4">
             <FiArrowLeft onClick={() => router.push("/")} size={30} className="cursor-pointer absolute top-5 left-5 text-gray-300 hover:text-white transition" />
@@ -49,18 +89,22 @@ export default function Signup({ userIdCookie }) {
 
                 <div>
                     {step === 1 && (
-                        <form className="flex flex-col" onSubmit={(e) => e.preventDefault()}>
+                        <form className="flex flex-col" onSubmit={handleSignup}>
                             <label className="mb-2 text-lg">Enter your email</label>
                             <input className="p-2 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                             <button className="mt-4 p-2 bg-[#161D29] hover:bg-blue-700 rounded-lg transition">Verify</button>
                         </form>
                     )}
                     {step === 2 && (
-                        <form className="flex flex-col" onSubmit={(e) => e.preventDefault()}>
-                            <label className="mb-2">Full Name</label>
+                        <form className="flex flex-col" onSubmit={handleVerifyOtp}>
+                            <label className="mb-2">Enter OTP</label>
+                            <input className="p-2 bg-gray-800 rounded-lg" type="text" value={otp} onChange={(e) => setOtp(e.target.value)} required />
+                            <label className="mt-4 mb-2">Full Name</label>
                             <input className="p-2 bg-gray-800 rounded-lg" type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
                             <label className="mt-4 mb-2">Enter Registration Number</label>
                             <input className="p-2 bg-gray-800 rounded-lg" type="text" value={regNumber} onChange={(e) => setRegNumber(e.target.value)} required />
+                            <label className="mt-4 mb-2">Contact Number</label>
+                            <input className="p-2 bg-gray-800 rounded-lg" type="text" value={contactNumber} onChange={(e) => setContactNumber(e.target.value)} required />
                             <button className="mt-4 p-2 bg-[#161D29] hover:bg-blue-700 rounded-lg transition">Complete Signup</button>
                         </form>
                     )}
