@@ -53,11 +53,11 @@ app.get("/", (req, res) => {
 
 /// Uncomment below code to run in test environment
 
-// app.listen(process.env.PORT || 5000, () => {
-//     console.log(`Server Running on🚀: ${process.env.PORT || 5000}`);
-// });
+app.listen(process.env.PORT || 5000, () => {
+    console.log(`Server Running on🚀: ${process.env.PORT || 5000}`);
+});
 
 
 /// Serverless Setup for production
 
-exports.handler = serverless(app);
+// exports.handler = serverless(app);
