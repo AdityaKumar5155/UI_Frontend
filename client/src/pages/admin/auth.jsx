@@ -17,7 +17,7 @@ export async function getServerSideProps(context) {
     };
 }
 
-export default function signin({ adminIdCookie }) {
+export default function Signin({ adminIdCookie }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [step, setStep] = useState(1);
@@ -73,166 +73,113 @@ export default function signin({ adminIdCookie }) {
     };
 
     return (
-        <div className="m-2">
-            {/* back button */}
+        <div className="min-h-screen flex flex-col items-center justify-center bg-[#000814] text-white p-4">
+            {/* Back button */}
             <FiArrowLeft
                 onClick={() => router.push("/")}
-                size={24}
-                className="cursor-pointer"
+                size={30}
+                className="cursor-pointer absolute top-5 left-5 text-gray-300 hover:text-white transition"
             />
+
             {/* Page heading */}
-            <div className="text-center text-3xl font-bold">
+            <div className="text-4xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
                 Admin Authentication Page
             </div>
 
             {/* Page Content */}
-            <div className="max-w-3xl mx-auto mt-10">
+            <div className="w-full max-w-2xl p-6 rounded-2xl bg-white/10 backdrop-blur-lg shadow-lg border border-white/20">
                 {/* Steps Nav */}
-                <div className="flex items-center justify-center">
-                    {/* Step 1: normal-height:fit; mobile-view: 6rem*/}
-                    <div
-                        className={`w-full h-24 lg:h-fit ${
-                            step === 1 ? `font-medium` : ``
-                        }`}
-                    >
+                <div className="flex justify-around mb-6">
+                    {["Verify Credentials", "Go to Dashboard"].map((text, index) => (
                         <div
-                            className={`h-full border-2 rounded-l-lg px-5 py-2 ${
-                                step >= 1
-                                    ? `text-white bg-[color:var(--darker-secondary-color)] border-r-white border-[color:var(--darker-secondary-color)]`
-                                    : `border-[color:var(--darker-secondary-color)] border-dashed`
+                            key={index}
+                            className={`w-full py-2 text-center rounded-lg transition ${
+                                step > index ? "bg-blue-600" : "bg-gray-700 opacity-40"
                             }`}
                         >
-                            <div>01</div>
-                            Verify Credentials
+                            {text}
                         </div>
-                    </div>
-
-                    {/* Step 2: normal-height:fit; mobile-view: 6rem */}
-                    <div
-                        className={`w-full h-24 lg:h-fit ${
-                            step === 2 ? `font-medium` : ``
-                        }`}
-                    >
-                        <div
-                            className={`h-full border-2 border-l-0 rounded-r-lg px-5 py-2 ${
-                                step >= 2
-                                    ? `text-white bg-[color:var(--darker-secondary-color)] border-[color:var(--darker-secondary-color)]`
-                                    : `border-[color:var(--darker-secondary-color)] border-dashed`
-                            }`}
-                        >
-                            <div>02</div>
-                            Go to Dashboard!
-                        </div>
-                    </div>
+                    ))}
                 </div>
 
                 {/* Error Message */}
                 {message.errorMsg && (
-                    <h1 className="rounded p-3 my-2 bg-red-200 text-red-600 font-medium">
-                        {message.errorMsg}
-                    </h1>
+                    <div className="mb-4 text-red-400 text-center">{message.errorMsg}</div>
                 )}
 
                 {/* Success Message */}
                 {message.successMsg && (
-                    <h1 className="rounded p-3 my-2 bg-green-200 text-green-600 font-medium">
-                        {message.successMsg}
-                    </h1>
+                    <div className="mb-4 text-green-400 text-center">{message.successMsg}</div>
                 )}
 
                 {/* Steps Content */}
-                <div className="bg-white p-5 rounded-lg mt-2">
-                    {
-                        /* Step 1 Content*/
-                        step === 1 && (
-                            <form onSubmit={handleSubmit}>
-                                <label className="block mb-2 text-sm font-medium text-gray-700">
-                                    Enter your Registered Email address
-                                </label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    value={email}
-                                    className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg w-full"
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
+                <div>
+                    {/* Step 1 Content */}
+                    {step === 1 && (
+                        <form className="flex flex-col" onSubmit={handleSubmit}>
+                            <label className="mb-2 text-lg">Enter your Registered Email address</label>
+                            <input
+                                className="p-2 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
 
-                                <label className="block mb-2 text-sm font-medium text-gray-700">
-                                    Enter your Password
-                                </label>
-                                <input
-                                    type="password"
-                                    id="password"
-                                    name="password"
-                                    value={password}
-                                    className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg w-full"
-                                    onChange={(e) =>
-                                        setPassword(e.target.value)
-                                    }
-                                />
+                            <label className="mt-4 mb-2 text-lg">Enter your Password</label>
+                            <input
+                                className="p-2 bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
 
-                                <p className="text-sm text-gray-700 mt-6">
-                                    *You have the option to designate yourself
-                                    as an admin for testing purposes by
-                                    following this{" "}
-                                    <a
-                                        href="https://invite-developers.vercel.app/"
-                                        target="_blank"
-                                        className="text-[color:var(--darker-secondary-color)]"
-                                    >
-                                        link.
-                                    </a>
-                                </p>
-
-                                <button
-                                    type="submit"
-                                    className="btn text-white bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--secondary-color)] w-full mt-4 mb-4 sm:w-auto sm:mb-0"
+                            <p className="text-sm text-gray-400 mt-6">
+                                *You have the option to designate yourself as an admin for testing purposes by following this{" "}
+                                <a
+                                    href="https://invite-developers.vercel.app/"
+                                    target="_blank"
+                                    className="text-blue-400 hover:underline"
                                 >
-                                    Verify
-                                </button>
+                                    link.
+                                </a>
+                            </p>
 
-                                <button
-                                    type="submit"
-                                    onClick={() => {
-                                        setEmail("invite.testing@gmail.com");
-                                        setPassword("invite123");
-                                    }}
-                                    className="btn text-white bg-gray-700 hover:bg-gray-800 mt-4 w-full sm:w-auto sm:ml-4"
-                                >
-                                    Use Test Credentials
-                                </button>
-                            </form>
-                        )
-                    }
-                    {
-                        /* Step 2 Content */
-                        step === 2 && (
-                            <div>
-                                <div className="bg-green-50 border-b border-green-400 text-green-800 text-sm p-4 flex justify-between">
-                                    <div>
-                                        <div className="flex items-center">
-                                            <p>
-                                                <span className="font-bold">
-                                                    Hey there!{" "}
-                                                </span>
-                                                Welcome back, you're
-                                                successfully signed in!
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button
-                                    onClick={() =>
-                                        router.push("/admin/dashboard")
-                                    }
-                                    className="mt-4 bg-[color:var(--darker-secondary-color)] text-white py-2 px-4 rounded hover:bg-[color:var(--secondary-color)] transition ease-in-out"
-                                >
-                                    Go to your dashboard
-                                </button>
-                            </div>
-                        )
-                    }
+                            <button
+                                type="submit"
+                                className="mt-4 p-2 bg-[#161D29] hover:bg-blue-700 rounded-lg transition"
+                            >
+                                Verify
+                            </button>
+
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setEmail("invite.testing@gmail.com");
+                                    setPassword("invite123");
+                                }}
+                                className="mt-4 p-2 bg-gray-700 hover:bg-gray-800 rounded-lg transition"
+                            >
+                                Use Test Credentials
+                            </button>
+                        </form>
+                    )}
+
+                    {/* Step 2 Content */}
+                    {step === 2 && (
+                        <div className="text-center">
+                            <p className="text-green-400 mb-4">
+                                Hey there! Welcome back, you're successfully signed in!
+                            </p>
+                            <button
+                                onClick={() => router.push("/admin/dashboard")}
+                                className="p-2 bg-[#161D29] hover:bg-blue-700 rounded-lg transition"
+                            >
+                                Go to your dashboard
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
