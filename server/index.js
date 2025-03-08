@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const serverless = require('serverless-http');
 const mongoose = require("mongoose");
 
 const cors = require("cors");
@@ -50,6 +51,13 @@ app.get("/", (req, res) => {
     res.send("Event Management micro services API.");
 });
 
-app.listen(process.env.PORT || 5000, () => {
-    console.log(`Server Running on🚀: ${process.env.PORT || 5000}`);
-});
+/// Uncomment below code to run in test environment
+
+// app.listen(process.env.PORT || 5000, () => {
+//     console.log(`Server Running on🚀: ${process.env.PORT || 5000}`);
+// });
+
+
+/// Serverless Setup for production
+
+exports.handler = serverless(app);
