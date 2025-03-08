@@ -1,18 +1,33 @@
 const Images = [
     {
         id: 0,
-        src: "/img/landing_page_images/features-01.png",
+        src: "/img/landing_page_images/first.png",
         title: "feature1",
     },
     {
         id: 1,
-        src: "/img/landing_page_images/features-02.png",
+        src: "/img/landing_page_images/second.png",
         title: "feature2",
     },
     {
         id: 2,
-        src: "/img/landing_page_images/features-03.png",
+        src: "/img/landing_page_images/third.png",
         title: "feature3",
+    },
+    {
+        id: 3,
+        src: "/img/landing_page_images/fourth.png",
+        title: "feature3",
+    },
+    {
+        id: 4,
+        src: "/img/landing_page_images/fourth.png",
+        title: "feature4",
+    },
+    {
+        id: 5,
+        src: "/img/landing_page_images/fourth.png",
+        title: "feature5",
     },
     {
         id: 3,
