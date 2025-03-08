@@ -3,7 +3,7 @@ import "../styles/style.css";
 function Header() {
     return (
         <div className="head">
-            <h1>Generate Admin Credential- InVITe</h1>
+            <h1>Generate Admin Credential- HackNest</h1>
             <center>
                 <p>
                     Product owners can set admins access here. Currently in test
