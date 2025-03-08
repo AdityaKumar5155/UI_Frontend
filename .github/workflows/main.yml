@@ -25,16 +25,17 @@ jobs:
         with:
           node-version: 18
 
+      - name: Go To Working Directory
+        run: cd server
+
       - name: Install Dependencies
         run: npm install
-        working-directory: server
 
       - name: Install SAM CLI
         run: pip install aws-sam-cli
 
       - name: Build SAM Application
         run: sam build
-        working-directory: server
 
       - name: Deploy SAM Application
         run: |
@@ -50,4 +51,3 @@ jobs:
               MongoAtlasUri=${{ vars.MONGO_ATLAS_URI }} \
               NodeMailerUser=${{ vars.NODE_MAILER_USER }} \
               NodeMailerPass=${{ vars.NODE_MAILER_PASS }}
-        working-directory: server
