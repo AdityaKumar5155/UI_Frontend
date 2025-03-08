@@ -40,7 +40,7 @@ jobs:
         run: |
           sam deploy \
             --stack-name hacknest-backend \
-            --s3-bucket hacknest-backend-sam \
+            --s3-bucket aws-sam-cli-managed-default-samclisourcebucket-1ctl9l6nonqv \
             --capabilities CAPABILITY_IAM \
             --parameter-overrides \
               AwsAccessKeyId=${{ vars.AWS_ACCESS_KEY_ID_ }} \
