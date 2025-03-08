@@ -7,7 +7,7 @@ export default function App({ Component, pageProps }) {
         <>
             <Head>
                 <link rel="shortcut icon" href="/favicon_io/favicon.ico" />
-                <title>InVITe</title>
+                <title>HackNest</title>
             </Head>
             <Component {...pageProps} />
         </>

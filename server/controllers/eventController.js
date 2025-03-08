@@ -24,7 +24,7 @@ function sendCheckInMail(data) {
     let mailOptions = {
         from: process.env.NODE_MAILER_USER,
         to: data.email,
-        subject: `${data.name} You've Checked In - InVITe`,
+        subject: `${data.name} You've Checked In - HackNest`,
         html: `Dear ${data.name},<br><br>
            <strong>Congratulations, you've successfully checked in!</strong><br><br>
            Name: ${data.name}<br>
