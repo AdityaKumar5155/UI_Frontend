@@ -57,19 +57,12 @@ export default function NavBar() {
                         className="flex items-center gap-x-3 cursor-pointer"
                     >
                         <Image
-                            src="/favicon_io/android-chrome-192x192.png"
+                            src="/img/event_logo.png"
                             width={500}
                             height={500}
                             alt="Logo"
                             className="h-8 w-8"
                         />
-                        <h1 className="m-2 text-black font-bold text-4xl">
-                            {"<In"}
-                            <span className="text-[color:var(--darker-secondary-color)]">
-                                VIT
-                            </span>
-                            {"e />"}
-                        </h1>
                     </div>
                     <nav className="text-sm">
                         <ul className="flex items-center">
