@@ -49,7 +49,7 @@ import HeroHome from "@/components/Landing_Page_partials/HeroHome";
 import LandingPageDevelopers from "@/utils/landing_page_developers";
 import React from "react";
 
-const [feature1, feature2, feature3, dev1, dev2, dev3, pm1] = LandingPageDevelopers;
+const [feature1, feature2, feature3, feature4, feature5,feature6] = LandingPageDevelopers;
 
 function LandingPage() {
     return (
@@ -58,7 +58,7 @@ function LandingPage() {
                 <Header />
                 <main className="grow">
                     <HeroHome />
-                    <FeaturesZigZag images={[feature1, feature2, feature3]} />
+                    <FeaturesZigZag images={[feature1, feature2, feature3, feature4, feature5, feature6]} />
                     {/* <Developers images={[dev1, dev2, dev3, pm1]} /> */}
                 </main>
             </div>
