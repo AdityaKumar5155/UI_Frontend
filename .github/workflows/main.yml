@@ -1,0 +1,53 @@
+name: Build and Deploy SAM Application
+
+on:
+  push:
+    branches:
+      - main # Trigger on push to the main branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ vars.AWS_ACCESS_KEY_ID_ }}
+          aws-secret-access-key: ${{ vars.AWS_SECRET_ACCESS_KEY_ }}
+          aws-region: ap-south-1
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm install
+        working-directory: server
+
+      - name: Install SAM CLI
+        run: pip install aws-sam-cli
+
+      - name: Build SAM Application
+        run: sam build
+        working-directory: server
+
+      - name: Deploy SAM Application
+        run: |
+          sam deploy \
+            --stack-name hacknest-backend \
+            --s3-bucket hacknest-backend-sam \
+            --capabilities CAPABILITY_IAM \
+            --parameter-overrides \
+              AwsAccessKeyId=${{ vars.AWS_ACCESS_KEY_ID_ }} \
+              AwsRegion=ap-south-1 \
+              AwsSecretAccessKey=${{ vars.AWS_SECRET_ACCESS_KEY_ }} \
+              JwtSecret=${{ vars.JWT_SECRET }} \
+              MongoAtlasUri=${{ vars.MONGO_ATLAS_URI }} \
+              NodeMailerUser=${{ vars.NODE_MAILER_USER }} \
+              NodeMailerPass=${{ vars.NODE_MAILER_PASS }}
+        working-directory: server
