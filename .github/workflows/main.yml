@@ -9,6 +9,10 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: server  # 👈 Sets working directory for all run commands
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -25,11 +29,8 @@ jobs:
         with:
           node-version: 18
 
-      - name: Go To Working Directory
-        run: cd server
-
       - name: Install Dependencies
-        run: npm install
+        run: npm install  # `working-directory` is applied automatically
 
       - name: Install SAM CLI
         run: pip install aws-sam-cli
@@ -41,7 +42,7 @@ jobs:
         run: |
           sam deploy \
             --stack-name hacknest-backend \
-            --s3-bucket aws-sam-cli-managed-default-samclisourcebucket-1ctl9l6nonqv \
+            --s3-bucket hacknest-backend-sam \
             --capabilities CAPABILITY_IAM \
             --parameter-overrides \
               AwsAccessKeyId=${{ vars.AWS_ACCESS_KEY_ID_ }} \
